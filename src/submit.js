@@ -52,11 +52,12 @@ export const SubmitButton = () => {
 
       alert(message);
     } catch (err) {
+      const isLocal = API_URL.includes('localhost');
+      const hint = isLocal
+        ? `Local: cd backend && python -m uvicorn main:app --reload`
+        : `Netlify: set REACT_APP_API_URL to your Render URL and redeploy.\nTrying: ${API_URL}`;
       alert(
-        `Error: Could not reach the backend.\n\n` +
-          `Make sure the backend is running:\n` +
-          `cd backend && uvicorn main:app --reload\n\n` +
-          `Details: ${err.message}`
+        `Error: Could not reach the backend.\n\n${hint}\n\nDetails: ${err.message}`
       );
     }
   };

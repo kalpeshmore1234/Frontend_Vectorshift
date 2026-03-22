@@ -3,7 +3,8 @@
 import { useStore } from './store';
 import { shallow } from 'zustand/shallow';
 
-const API_URL = 'http://localhost:8000';
+// Local dev: default. Production: set REACT_APP_API_URL in Netlify (e.g. https://your-api.onrender.com)
+const API_URL = (process.env.REACT_APP_API_URL || 'http://localhost:8000').replace(/\/$/, '');
 
 export const SubmitButton = () => {
   const { nodes, edges } = useStore(

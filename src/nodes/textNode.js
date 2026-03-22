@@ -46,8 +46,6 @@ export const TextNode = ({ id, data }) => {
     const el = textareaRef.current;
     el.style.height = 'auto';
     el.style.width = 'auto';
-    const scrollHeight = el.scrollHeight;
-    const scrollWidth = el.scrollWidth;
     const lines = currText.split('\n').length;
     const maxLineLen = Math.max(...currText.split('\n').map((l) => l.length), 1);
     const height = Math.max(MIN_HEIGHT, Math.min(lines * ROW_HEIGHT + PADDING, 300));

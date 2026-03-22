@@ -94,7 +94,6 @@ export const PipelineUI = () => {
       (event) => {
         event.preventDefault();
 
-        const reactFlowBounds = reactFlowWrapper.current.getBoundingClientRect();
         const raw = event?.dataTransfer?.getData('application/reactflow');
         if (!raw) return;
 

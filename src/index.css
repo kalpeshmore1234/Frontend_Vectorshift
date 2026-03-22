@@ -209,6 +209,30 @@ code {
     background: var(--vs-border);
     border-radius: 3px;
   }
+
+  /* Shorter canvas so the page isn’t one huge block; Submit stays reachable */
+  .react-flow-wrap {
+    height: 45vh;
+    min-height: 220px;
+    max-height: 420px;
+  }
+
+  /* Pin Submit above the fold / thumb zone */
+  .submit-section {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    padding: 12px 16px;
+    padding-bottom: max(12px, env(safe-area-inset-bottom));
+    box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.35);
+  }
+
+  /* Reserve space so canvas isn’t hidden behind the fixed bar */
+  .app {
+    padding-bottom: calc(76px + env(safe-area-inset-bottom, 0px));
+  }
 }
 
 .submit-section {
@@ -234,4 +258,12 @@ code {
 
 .submit-btn:hover {
   background: var(--vs-accent-hover);
+}
+
+/* Mobile: base .submit-section above wins on padding — re-apply compact bar padding */
+@media (max-width: 768px) {
+  .submit-section {
+    padding: 12px 16px;
+    padding-bottom: max(12px, env(safe-area-inset-bottom));
+  }
 }

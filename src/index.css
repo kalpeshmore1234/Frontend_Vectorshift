@@ -1,0 +1,237 @@
+/* VectorShift-inspired unified design */
+:root {
+  --vs-bg-dark: #0f1419;
+  --vs-bg-card: #1c2536;
+  --vs-bg-node: #252d3d;
+  --vs-border: #3d4a5c;
+  --vs-text-primary: #f0f2f5;
+  --vs-text-secondary: #9ca3af;
+  --vs-accent: #6366f1;
+  --vs-accent-hover: #818cf8;
+  --vs-success: #22c55e;
+  --vs-error: #ef4444;
+  --vs-node-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  --vs-radius: 8px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    'Helvetica Neue', Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: var(--vs-bg-dark);
+  color: var(--vs-text-primary);
+  min-height: 100vh;
+}
+
+code {
+  font-family: 'JetBrains Mono', source-code-pro, Menlo, Monaco, Consolas,
+    'Courier New', monospace;
+}
+
+/* React Flow overrides */
+.react-flow__node {
+  border-radius: var(--vs-radius);
+  box-shadow: var(--vs-node-shadow);
+}
+
+.react-flow__handle {
+  width: 10px;
+  height: 10px;
+  background: var(--vs-accent);
+  border: 2px solid var(--vs-bg-dark);
+}
+
+.react-flow__edge-path {
+  stroke: var(--vs-accent);
+}
+
+.react-flow__controls {
+  button {
+    background: var(--vs-bg-card) !important;
+    color: var(--vs-text-primary) !important;
+    border-color: var(--vs-border) !important;
+  }
+  button:hover {
+    background: var(--vs-bg-node) !important;
+  }
+}
+
+.react-flow__minimap {
+  background: var(--vs-bg-card);
+  border-radius: var(--vs-radius);
+}
+
+.react-flow__background {
+  background-color: var(--vs-bg-dark);
+}
+
+/* Pipeline node cards — keep inputs inside the card */
+.vs-node-card {
+  max-width: 100%;
+}
+
+.vs-node-title {
+  font-weight: 600;
+  margin-bottom: 8px;
+  font-size: 13px;
+  color: var(--vs-text-primary);
+}
+
+.vs-node-body {
+  font-size: 12px;
+  color: var(--vs-text-secondary);
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  overflow: hidden;
+}
+
+/* Node form elements */
+.react-flow__node input,
+.react-flow__node select,
+.react-flow__node textarea {
+  background: var(--vs-bg-dark);
+  color: var(--vs-text-primary);
+  border: 1px solid var(--vs-border);
+  border-radius: 4px;
+  padding: 6px 8px;
+  font-size: 12px;
+  margin: 0;
+  min-width: 0;
+  max-width: 100%;
+  flex: 1 1 auto;
+  width: 100%;
+}
+
+.react-flow__node input:focus,
+.react-flow__node select:focus,
+.react-flow__node textarea:focus {
+  outline: none;
+  border-color: var(--vs-accent);
+}
+
+.react-flow__node label {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 0;
+  gap: 8px;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+}
+
+.react-flow__node label > input,
+.react-flow__node label > select {
+  flex: 1 1 120px;
+  min-width: 0;
+  width: auto;
+  max-width: 100%;
+}
+
+/* Textarea (e.g. Text node) — full width of card, not a flex grow item */
+.vs-node-body > textarea {
+  flex: 0 1 auto;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.toolbar {
+  padding: 16px 20px;
+  background: var(--vs-bg-card);
+  border-bottom: 1px solid var(--vs-border);
+}
+
+.pipeline-hint {
+  margin: 0;
+  padding: 10px 20px;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--vs-text-secondary);
+  background: var(--vs-bg-dark);
+  border-bottom: 1px solid var(--vs-border);
+}
+
+.react-flow-wrap {
+  width: 100%;
+  height: 65vh;
+  min-height: 400px;
+}
+
+.toolbar-nodes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+
+.toolbar-nodes > * {
+  flex-shrink: 0;
+}
+
+/* Mobile: one row, horizontal scroll (does not affect canvas / Submit) */
+@media (max-width: 768px) {
+  .toolbar {
+    padding: 12px 0 12px 12px;
+  }
+
+  .toolbar-nodes {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-x: contain;
+    gap: 10px;
+    padding-right: 12px;
+  }
+
+  .toolbar-nodes::-webkit-scrollbar {
+    height: 6px;
+  }
+
+  .toolbar-nodes::-webkit-scrollbar-thumb {
+    background: var(--vs-border);
+    border-radius: 3px;
+  }
+}
+
+.submit-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: var(--vs-bg-card);
+  border-top: 1px solid var(--vs-border);
+}
+
+.submit-btn {
+  padding: 12px 32px;
+  font-size: 16px;
+  font-weight: 600;
+  color: white;
+  background: var(--vs-accent);
+  border: none;
+  border-radius: var(--vs-radius);
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.submit-btn:hover {
+  background: var(--vs-accent-hover);
+}
